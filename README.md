@@ -1,6 +1,6 @@
 # Pixhawk4 Vision Control
 
-This repository explains how to integrate a Pixhawk4-controlled vehicle with Motive(TM) OptiTrack system.
+This repository explains how to integrate a Pixhawk4-controlled vehicle with OptiTrack Motive system.
 
 
 ## Requirements
@@ -32,29 +32,39 @@ You can also install from the source [(see official guide)](https://docs.px4.io/
   cd ~/catkin_ws
   catkin_make
 ```
-*Note: You could also build the workspace using `catkin build` if you installed **python-catkin-tools**
+> *Note: You could also build the workspace using `catkin build` if you installed **python-catkin-tools***
 
 5) Source the setups to bashrc so that the `px4_vision_control` package is searchable
 ```bash
   sudo echo 'source ~/catkin_ws/devel/setup.bash' >> bashrc
 ```
 Or alternatively, you could run `source ~/catkin_ws/devel/setup.bash` when opening every new terminal in Ubuntu.
-> *Note: it's good idea to close and reopen every termianl when running step 4*
+> *It's good idea to close and reopen all termianls when running step 5*
 
-## Setup Drone
-1) Download and open [QGroundControl](http://qgroundcontrol.com/downloads/). Install fresh firmware and perform calibaration of the drone ([see this guid](https://docs.px4.io/v1.12/en/config/firmware.html))
-2) Go to  Vehicle Setup > Parameters
-3) Change the following parameters to allow position estimate with external motion capture system: 
+## Setup Drone for External Position Estimate
+1) Download and open [QGroundControl](http://qgroundcontrol.com/downloads/). 
+2) Install fresh firmware and perform calibaration of the drone ([see this guid](https://docs.px4.io/v1.12/en/config/firmware.html))
+3) In QGroundControl, go to  Vehicle Setup > Parameters
+4) Change the following parameters to allow position estimate with external motion capture system: 
 
- MAVLink Parameter | Setting 
+ Parameter | Setting 
  --- | --- 
  `EKF2_AID_MASK` | Set vision position fusion, vision velocity fusion, vision yaw fusion and external vision rotation 
  `EKF2_HGT_MODE` | Set to Vision to use the vision a primary source for altitude estimation 
 
 > *Reboot the flight controller in order for parameter changes to take effect.*
 
-More info is found in this [guide](https://docs.px4.io/v1.12/en/ros/external_position_estimation.html#ekf2-tuning-configuration)
+> More info about the setup can found in this [guide](https://docs.px4.io/v1.12/en/ros/external_position_estimation.html#ekf2-tuning-configuration)
 
-## Getting Started
-1) Install **mavros** and **px4_vision_control** using the steps above.
-2) Power on the drone. Plug 
+## Setup OptiTrack Motive
+1) Perform setup of the motion capture system. See this [guide](https://v30.wiki.optitrack.com/index.php?title=Quick_Start_Guide:_Getting_Started)
+2) Perform calibration of the system. See this [guide](https://v30.wiki.optitrack.com/index.php?title=Calibration)
+3) Place (at least three) markers on the drone.
+4) Place the drone in the arena. You should see the markers in Motive.
+5) Select the markers of the drone (at least three) and right-click in Motive and select `Rigid Body -> Create From Selected Markers`
+**Imag**
+6) Open the project pane click on `View -> Project`. The rigid body will appear in `Assets` in the project pane. Rename the drone to `drone1`. If another name is desired, use a name without a space (for example, use `robot_1` or `robot1` instead of `robot 1`).
+
+> Keep a note on the name of the drone, as it will be used in ROS
+
+
