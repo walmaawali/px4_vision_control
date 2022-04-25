@@ -45,12 +45,14 @@ Or alternatively, you could run `source ~/catkin_ws/devel/setup.bash` when openi
 1) Download and open [QGroundControl](http://qgroundcontrol.com/downloads/). Install fresh firmware and perform calibaration of the drone ([see this guid](https://docs.px4.io/v1.12/en/config/firmware.html))
 2) Go to  Vehicle Setup > Parameters
 3) Change the following parameters to allow position estimate with external motion capture system: 
-| MAVLink Parameter | Setting |
-| ------------- |:-------------:|
-| EKF2_AID_MASK | Set vision position fusion, vision velocity fusion, vision yaw fusion and external vision rotation |
-| EKF2_HGT_MODE | Set to Vision to use the vision a primary source for altitude estimation |
+
+ MAVLink Parameter | Setting 
+ --- | --- 
+ `EKF2_AID_MASK` | Set vision position fusion, vision velocity fusion, vision yaw fusion and external vision rotation 
+ `EKF2_HGT_MODE` | Set to Vision to use the vision a primary source for altitude estimation 
 
 > *Reboot the flight controller in order for parameter changes to take effect.*
+
 More info is found in this [guide](https://docs.px4.io/v1.12/en/ros/external_position_estimation.html#ekf2-tuning-configuration)
 
 ## Getting Started
