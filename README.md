@@ -2,6 +2,13 @@
 
 This repository explains how to integrate a Pixhawk4-controlled vehicle with OptiTrack Motive system.
 
+[![BSD License](https://img.shields.io/badge/license-BSD-green.svg)](https://github.com/walmaawali/px4_vision_control/blob/main/LICENSE)
+[![Python 2.7](https://img.shields.io/badge/python-2.7-blue.svg)](https://www.python.org/download/releases/2.7/)
+[![ROS Kinetic](https://img.shields.io/badge/ros-kinetic-red.svg)](http://wiki.ros.org/kinetic)
+[![Ubuntu 16.04 LTS](https://img.shields.io/badge/ubuntu-16.04-orange.svg)](https://releases.ubuntu.com/16.04/)
+[![MATLAB 2021b](https://img.shields.io/badge/matlab-2021b-lightgrey.svg)](https://www.mathworks.com)
+
+
 
 ## Requirements
 * Windows PC running MATLAB/Simulink 2021b and [OptiTrack Motive](https://optitrack.com/software/motive/)
@@ -41,6 +48,8 @@ You can also install from the source [(see official guide)](https://docs.px4.io/
 Or alternatively, you could run `source ~/catkin_ws/devel/setup.bash` when opening every new terminal in Ubuntu.
 > *It's good idea to close and reopen all termianls when running step 5*
 
+### Testing the integration
+1) Power on the drone
 ## Setup Drone for External Position Estimate
 1) Download and open [QGroundControl](http://qgroundcontrol.com/downloads/). 
 2) Install fresh firmware and perform calibaration of the drone ([see this guid](https://docs.px4.io/v1.12/en/config/firmware.html))
@@ -63,10 +72,29 @@ Or alternatively, you could run `source ~/catkin_ws/devel/setup.bash` when openi
 4) Place the drone in the arena. You should see the markers in Motive.
 5) Select the markers of the drone (at least three) and right-click in Motive and select `Rigid Body -> Create From Selected Markers`
 
-![Motive screenshot](https://github.com/walmaawali/px4_vision_control/blob/main/images/create_rigid_body.png =250x "create a rigid body in Motive")
+![create a rigid body in Motive](https://github.com/walmaawali/px4_vision_control/blob/main/images/create_rigid_body.png | width=100)
 
-6) Open the project pane click on `View -> Project`. The rigid body will appear in `Assets` in the project pane. Rename the drone to `drone1`. If another name is desired, use a name without a space (for example, use `robot_1` or `robot1` instead of `robot 1`).
+<img src="https://github.com/walmaawali/px4_vision_control/blob/main/images/create_rigid_body.png" width="200" />
+
+6) Open the project pane click on `View -> Project`. The rigid body will appear in `Assets` in the project pane. Rename the drone to `drone1`. 
+
+> Hint: If another name is desired, use a name without a space (for example, use `robot_1` or `robot1` instead of `robot 1`).
 
 > Keep a note on the name of the drone, as it will be used in ROS
+
+> More info can be found in this [reference](https://tuw-cpsg.github.io/tutorials/optitrack-and-ros/)
+
+## References
+[VRPN ROS Package](http://wiki.ros.org/vrpn_client_ros)
+
+## Authors and Contributers
+- [Dr. Jawhar Ghommam](https://www.researchgate.net/profile/Jawhar-Ghommam)
+- [Ibrahim Al Jahwari](https://github.com/Ibrahim9955)
+- [Waleed Al Maawali](https://www.github.com/walmaawali)
+- [Madona Ibrahim]()
+- [Majid Al Mujaini](https://github.com/Mujaini-M)
+
+
+
 
 
