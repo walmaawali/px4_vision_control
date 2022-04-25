@@ -8,12 +8,15 @@ This repository explains how to integrate a Pixhawk4-controlled vehicle with Opt
 [![Ubuntu 16.04 LTS](https://img.shields.io/badge/ubuntu-16.04-orange.svg)](https://releases.ubuntu.com/16.04/)
 [![MATLAB 2021b](https://img.shields.io/badge/matlab-2021b-lightgrey.svg)](https://www.mathworks.com)
 
-
-
 ## Requirements
 * Windows PC running MATLAB/Simulink 2021b and [OptiTrack Motive](https://optitrack.com/software/motive/)
 * Linux PC with Ubuntu 16.04 and [ROS Kinetic](http://wiki.ros.org/kinetic/Installation/Ubuntu)
 * [Holybro S500 drone](https://shop.holybro.com/s500-v2-kit_p1153.html) with [Pixhawk4](https://shop.holybro.com/pixhawk-4_p1089.html) and [radio telemetry](https://shop.holybro.com/sik-telemetry-radio-v3_p1103.html)
+* USB WiFi adapter (we used [TP-Link AC1900](https://www.amazon.com/TP-Link-Archer-T9UH-Wireless-network/dp/B01GE9QS0G/)
+
+> Note: The USB WiFi adapter is not needed if the Linux and Windows PC exist in the same network (i.e. connected to an ethernet switch)
+
+> Hint: You may run a Linux virtual machine within the Windows PC and perform the steps below without needing another Linux PC. Make sure that network is well configured, and USB devices are enabled on the virtual machine.
 
 ## Installation
 1) Install **mavros** and **mavros_extras** ROS(1) packages
@@ -50,6 +53,27 @@ Or alternatively, you could run `source ~/catkin_ws/devel/setup.bash` when openi
 
 ### Testing the integration
 1) Power on the drone
+2) Plug the USB telemetry radio. On the termial, enable access to the device
+```bash
+  sudo chmod 666 /dev/ttyUSB0
+```
+> Note: the USB telemetry radio may be on a different directoty (i.e. `/dev/ttyUSB1` or `/dev/ttyACM0`). Run `ls /dev` to see all serial devices. Try unplug and replug the USB telemetry radio and see which file gets created.
+
+3) Launch mavros node
+```bash
+  roslaunch mavros px4.launch
+```
+4) Open another terminal, and issue arming command
+```bash
+  rosrun mavros mavsafety arm
+```
+5) To disarm, use the command
+```bash
+  rosrun mavros mavsafety disarm
+```
+> Note: issuing the arming command may be rejected. If the drone produces a "rejection" sound, the integration still is successful. The sound means that not all arming conditions are satisfied. You may need to stream motion capture position (more into that later).
+
+
 ## Setup Drone for External Position Estimate
 1) Download and open [QGroundControl](http://qgroundcontrol.com/downloads/). 
 2) Install fresh firmware and perform calibaration of the drone ([see this guid](https://docs.px4.io/v1.12/en/config/firmware.html))
@@ -72,9 +96,7 @@ Or alternatively, you could run `source ~/catkin_ws/devel/setup.bash` when openi
 4) Place the drone in the arena. You should see the markers in Motive.
 5) Select the markers of the drone (at least three) and right-click in Motive and select `Rigid Body -> Create From Selected Markers`
 
-![create a rigid body in Motive](https://github.com/walmaawali/px4_vision_control/blob/main/images/create_rigid_body.png | width=100)
-
-<img src="https://github.com/walmaawali/px4_vision_control/blob/main/images/create_rigid_body.png" width="200" />
+<img src="https://github.com/walmaawali/px4_vision_control/blob/main/images/create_rigid_body.png" width="500" />
 
 6) Open the project pane click on `View -> Project`. The rigid body will appear in `Assets` in the project pane. Rename the drone to `drone1`. 
 
@@ -85,7 +107,9 @@ Or alternatively, you could run `source ~/catkin_ws/devel/setup.bash` when openi
 > More info can be found in this [reference](https://tuw-cpsg.github.io/tutorials/optitrack-and-ros/)
 
 ## References
+[OptiTrack Motive](https://v30.wiki.optitrack.com/index.php?title=OptiTrack_Documentation_Wiki)
 [VRPN ROS Package](http://wiki.ros.org/vrpn_client_ros)
+[MAVROS](http://wiki.ros.org/mavros)
 
 ## Authors and Contributers
 - [Dr. Jawhar Ghommam](https://www.researchgate.net/profile/Jawhar-Ghommam)
