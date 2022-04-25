@@ -62,7 +62,9 @@ Or alternatively, you could run `source ~/catkin_ws/devel/setup.bash` when openi
 3) Place (at least three) markers on the drone.
 4) Place the drone in the arena. You should see the markers in Motive.
 5) Select the markers of the drone (at least three) and right-click in Motive and select `Rigid Body -> Create From Selected Markers`
-**Imag**
+
+![Motive screenshot](https://github.com/walmaawali/px4_vision_control/blob/main/images/create_rigid_body.png "create a rigid body in Motive")
+
 6) Open the project pane click on `View -> Project`. The rigid body will appear in `Assets` in the project pane. Rename the drone to `drone1`. If another name is desired, use a name without a space (for example, use `robot_1` or `robot1` instead of `robot 1`).
 
 > Keep a note on the name of the drone, as it will be used in ROS
