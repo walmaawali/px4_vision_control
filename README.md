@@ -8,6 +8,13 @@ This repository explains how to integrate a Pixhawk4-controlled vehicle with Opt
 [![Ubuntu 16.04 LTS](https://img.shields.io/badge/ubuntu-16.04-orange.svg)](https://releases.ubuntu.com/16.04/)
 [![MATLAB 2021b](https://img.shields.io/badge/matlab-2021b-lightgrey.svg)](https://www.mathworks.com)
 
+## Architecture
+### Software Architecture
+<img src="https://github.com/walmaawali/px4_vision_control/blob/main/images/software_architecture.jpg" width="600" />
+
+### Hardware Architecture
+<img src="https://github.com/walmaawali/px4_vision_control/blob/main/images/hardware_architecture.jpg" width="600" />
+
 ## Requirements
 * Windows PC running MATLAB/Simulink 2021b and [OptiTrack Motive](https://optitrack.com/software/motive/)
 * Linux PC with Ubuntu 16.04 and [ROS Kinetic](http://wiki.ros.org/kinetic/Installation/Ubuntu)
