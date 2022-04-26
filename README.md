@@ -171,13 +171,6 @@ Next, add a *Pose* and *tf* objects in RViZ, according to the image below. The o
 
 > More info can be found in this [reference](https://tuw-cpsg.github.io/tutorials/optitrack-and-ros/). See VRPN section.
 
-## Footnotes
-[^1]:You can also install from the source using this [guide](https://docs.px4.io/v1.12/en/ros/mavros_installation.html#source-installation)
-
-[^2]: You could also build the workspace using `catkin build` if you installed **python-catkin-tools**
-
-[^3]: Or alternatively, you could run `source ~/catkin_ws/devel/setup.bash` when opening every new terminal in Ubuntu.
-
 ## References
 [OptiTrack Motive](https://v30.wiki.optitrack.com/index.php?title=OptiTrack_Documentation_Wiki)
 
@@ -195,6 +188,13 @@ Next, add a *Pose* and *tf* objects in RViZ, according to the image below. The o
 - [Waleed Al Maawali](https://www.github.com/walmaawali)
 - [Madona Ibrahim]()
 - [Majid Al Mujaini](https://github.com/Mujaini-M)
+
+## Footnotes
+[^1]:You can also install from the source using this [guide](https://docs.px4.io/v1.12/en/ros/mavros_installation.html#source-installation)
+
+[^2]: You could also build the workspace using `catkin build` if you installed **python-catkin-tools**
+
+[^3]: Or alternatively, you could run `source ~/catkin_ws/devel/setup.bash` when opening every new terminal in Ubuntu.
 
 
 
