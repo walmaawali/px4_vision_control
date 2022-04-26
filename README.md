@@ -94,7 +94,7 @@ Or alternatively, you could run `source ~/catkin_ws/devel/setup.bash` when openi
 2) Perform calibration of the system. See this [guide](https://v30.wiki.optitrack.com/index.php?title=Calibration)
 3) Place (at least three) markers on the drone.
 
-<img src="https://github.com/walmaawali/px4_vision_control/blob/main/images/drone.png" height="500" />
+<img src="https://github.com/walmaawali/px4_vision_control/blob/main/images/drone.jpg" height="500" />
 
 4) Place the drone in the arena. You should see the markers in Motive.
 5) Select the markers of the drone (at least three) and right-click in Motive and select `Rigid Body -> Create From Selected Markers`
@@ -168,9 +168,13 @@ Next, add a *Pose* and *tf* objects in RViZ, according to the image below. The o
 
 ## References
 [OptiTrack Motive](https://v30.wiki.optitrack.com/index.php?title=OptiTrack_Documentation_Wiki)
+
 [VRPN ROS Package](http://wiki.ros.org/vrpn_client_ros)
+
 [MAVROS](http://wiki.ros.org/mavros)
+
 [How to setup motion capture with ROS](https://tuw-cpsg.github.io/tutorials/optitrack-and-ros/)
+
 [How to setup PX4 for motion capture](https://docs.px4.io/v1.12/en/ros/external_position_estimation.html#ekf2-tuning-configuration)
 
 ## Authors and Contributers
