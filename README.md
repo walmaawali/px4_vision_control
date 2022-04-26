@@ -87,29 +87,91 @@ Or alternatively, you could run `source ~/catkin_ws/devel/setup.bash` when openi
 
 > *Reboot the flight controller in order for parameter changes to take effect.*
 
-> More info about the setup can found in this [guide](https://docs.px4.io/v1.12/en/ros/external_position_estimation.html#ekf2-tuning-configuration)
+> More info about the setup can found in this [reference](https://docs.px4.io/v1.12/en/ros/external_position_estimation.html#ekf2-tuning-configuration)
 
 ## Setup OptiTrack Motive
 1) Perform setup of the motion capture system. See this [guide](https://v30.wiki.optitrack.com/index.php?title=Quick_Start_Guide:_Getting_Started)
 2) Perform calibration of the system. See this [guide](https://v30.wiki.optitrack.com/index.php?title=Calibration)
 3) Place (at least three) markers on the drone.
+
+<img src="https://github.com/walmaawali/px4_vision_control/blob/main/images/drone.png" height="500" />
+
 4) Place the drone in the arena. You should see the markers in Motive.
 5) Select the markers of the drone (at least three) and right-click in Motive and select `Rigid Body -> Create From Selected Markers`
 
 <img src="https://github.com/walmaawali/px4_vision_control/blob/main/images/create_rigid_body.png" width="500" />
 
-6) Open the project pane click on `View -> Project`. The rigid body will appear in `Assets` in the project pane. Rename the drone to `drone1`. 
+6) Open the asset pane click on `View -> Asset Pane`.
+
+<img src="https://github.com/walmaawali/px4_vision_control/blob/main/images/asset_pane.png" width="500" />
+
+7) The rigid body will appear in `Assets` in the project pane. Rename the drone to `drone1`.
+
+<img src="https://github.com/walmaawali/px4_vision_control/blob/main/images/motive_asset_pane.PNG" />
 
 > Hint: If another name is desired, use a name without a space (for example, use `robot_1` or `robot1` instead of `robot 1`).
 
-> Keep a note on the name of the drone, as it will be used in ROS
+> Keep a note on the name of the drone, as it will be used in ROS.
 
-> More info can be found in this [reference](https://tuw-cpsg.github.io/tutorials/optitrack-and-ros/)
+8) Open the data streaming pane click on `View -> Data Streaming Pane`.
+
+<img src="https://github.com/walmaawali/px4_vision_control/blob/main/images/streaming_pane.png" width="500"/>
+
+9) Enable VRPN broadcasting and Frame broadcasting according to the settings below (you need to show advanced settings to see all the fields). Make sure VRPN broadcating port is 3883.
+
+<img src="https://github.com/walmaawali/px4_vision_control/blob/main/images/motive_streaming_settings.PNG" height="500"/>
+
+10) Start live streaming by clicking the red dot in OptiTrack Motive
+
+### Testing the integration
+
+> Note: The following steps are illusterated for **WiFi connection** between the Linux PC and Windows PC. You may use ehternet connection, ehternet switch, or virtua machine as mentioned earlier.
+
+1) Place the drone in the arean.
+2) Connect the **USB WiFi adapter** to Windows PC, and enable [mobile hotspot](https://support.microsoft.com/en-us/windows/use-your-windows-pc-as-a-mobile-hotspot-c89b0fad-72d5-41e8-f7ea-406ad9036b85#WindowsVersion=Windows_10) from the network settings.
+3) Connect the Linux PC to the mobile hotspot. Keep a note on the IP addresses of the Windows PC and Linux PC by running this command in Linux terminal
+```bash
+  ifconfig
+```
+
+4) After perfoming Installation steps, run the following command on Linux terminal 
+```bash
+  roslaunch vrpn_client_ros sample.launch server:=192.168.137.1
+```
+
+Change the server IP address `192.168.137.1` to the one obtained from step 3.
+
+5) To check that motion data is received by ROS, open another termianl and run
+```bash
+  rostopic list   #you should see a new topic /vrpn_client_node/robot1/pose
+  rostopic echo /vrpn_client_node/robot1/pose    # you shoud see a stream of data
+```
+
+Here we have named our rigid body `robot1`. The name may be different according to the name you have chosen while creating the rigid body.
+
+> Note: streaming will stop if you take out the drone from the arena.
+
+6) (Optional) To visuaize data in ROS, run the following commands, each one in a seperate terminal
+```bash
+  #convert from OptiTrack coordinate system to ROS coordinate system
+  rosrun tf static_transform_publisher 0 0 0 1.57 0 1.57 map world 10
+
+  # visuaizatin tool in ROS
+  rviz
+```
+
+Next, add a *Pose* and *tf* objects in RViZ, according to the image below. The object in RViZ should move as you move or rotate the drone in the arena.
+
+<img src="https://github.com/walmaawali/px4_vision_control/blob/main/images/rviz.jpg" width="500"/>
+
+> More info can be found in this [reference](https://tuw-cpsg.github.io/tutorials/optitrack-and-ros/). See VRPN section.
 
 ## References
 [OptiTrack Motive](https://v30.wiki.optitrack.com/index.php?title=OptiTrack_Documentation_Wiki)
 [VRPN ROS Package](http://wiki.ros.org/vrpn_client_ros)
 [MAVROS](http://wiki.ros.org/mavros)
+[How to setup motion capture with ROS](https://tuw-cpsg.github.io/tutorials/optitrack-and-ros/)
+[How to setup PX4 for motion capture](https://docs.px4.io/v1.12/en/ros/external_position_estimation.html#ekf2-tuning-configuration)
 
 ## Authors and Contributers
 - [Dr. Jawhar Ghommam](https://www.researchgate.net/profile/Jawhar-Ghommam)
