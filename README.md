@@ -142,7 +142,7 @@ This repository explains how to integrate a Pixhawk4-controlled vehicle with Opt
   ifconfig
 ```
 
-4) After perfoming Installation steps, run the following command on Linux terminal  (change the server IP address `192.168.137.1` to the one obtained from step 3)[^5]
+4) After perfoming Installation steps, run the following command on Linux terminal  (change the server IP address `192.168.137.1` to the one obtained from step 3) [^5]
 ```bash
   roslaunch vrpn_client_ros sample.launch server:=192.168.137.1
 ```
@@ -257,7 +257,7 @@ Next, add a *Pose* and *tf* objects in RViZ, according to the image below. The o
 
 [^4]: Currently, the name `drone1` is hard-coded. If you used another name, change `drone1` to the drone name in files **scripts/motive_topic_relay.py** and **launch/setup.launch** of this package.
 
-[^5] Currently, the IP address `192.168.137.1` of Windows PC is hard-coded. If yours is different, make sure to change this in the file **launch/setup.launch** of this package.
+[^5]: Currently, the IP address `192.168.137.1` of Windows PC is hard-coded. If yours is different, make sure to change this in the file **launch/setup.launch** of this package.
 
 
 
