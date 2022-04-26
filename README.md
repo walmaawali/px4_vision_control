@@ -26,12 +26,10 @@ This repository explains how to integrate a Pixhawk4-controlled vehicle with Opt
 > Hint: You may run a Linux virtual machine within the Windows PC and perform the steps below without needing another Linux PC. Make sure that network is well configured, and USB devices are enabled on the virtual machine.
 
 ## Installation
-1) Install **mavros** and **mavros_extras** ROS(1) packages
+1) Install **mavros** and **mavros_extras** ROS(1) packages[^1]
 ```bash
   sudo apt-get install ros-kinetic-mavros ros-kinetic-mavros-extras
 ```
-You can also install from the source [(see official guide)](https://docs.px4.io/v1.12/en/ros/mavros_installation.html#source-installation)
-
 
 2) Install **vrpn_ros_client** ROS(1) packages
 ```bash
@@ -44,18 +42,17 @@ You can also install from the source [(see official guide)](https://docs.px4.io/
   git clone https://github.com/walmaawali/px4_vision_control.git
 ```
 
-4) Build the workspace
+4) Build the workspace[^2]
 ```bash
   cd ~/catkin_ws
   catkin_make
 ```
-> *Note: You could also build the workspace using `catkin build` if you installed **python-catkin-tools***
 
-5) Source the setups to bashrc so that the `px4_vision_control` package is searchable
+5) Source the setups to bashrc so that the `px4_vision_control` package is searchable[^3]
 ```bash
   sudo echo 'source ~/catkin_ws/devel/setup.bash' >> bashrc
 ```
-Or alternatively, you could run `source ~/catkin_ws/devel/setup.bash` when opening every new terminal in Ubuntu.
+
 > *It's good idea to close and reopen all termianls when running step 5*
 
 ### Testing the integration
@@ -83,7 +80,7 @@ Or alternatively, you could run `source ~/catkin_ws/devel/setup.bash` when openi
 
 ## Setup Drone for External Position Estimate
 1) Download and open [QGroundControl](http://qgroundcontrol.com/downloads/). 
-2) Install fresh firmware and perform calibaration of the drone ([see this guid](https://docs.px4.io/v1.12/en/config/firmware.html))
+2) Install fresh firmware and perform calibaration of the drone. See this [guide](https://docs.px4.io/v1.12/en/config/firmware.html)
 3) In QGroundControl, go to  Vehicle Setup > Parameters
 4) Change the following parameters to allow position estimate with external motion capture system: 
 
@@ -124,7 +121,7 @@ Or alternatively, you could run `source ~/catkin_ws/devel/setup.bash` when openi
 
 <img src="https://github.com/walmaawali/px4_vision_control/blob/main/images/streaming_pane.png" width="500"/>
 
-9) Enable VRPN broadcasting and Frame broadcasting according to the settings below (you need to show advanced settings to see all the fields). Make sure VRPN broadcating port is 3883.
+9) Enable VRPN broadcasting and Frame broadcasting according to the settings below (you need to show advanced settings to see all the fields). Make sure VRPN broadcating port is **3883**.
 
 <img src="https://github.com/walmaawali/px4_vision_control/blob/main/images/motive_streaming_settings.PNG" height="500"/>
 
@@ -141,17 +138,18 @@ Or alternatively, you could run `source ~/catkin_ws/devel/setup.bash` when openi
   ifconfig
 ```
 
-4) After perfoming Installation steps, run the following command on Linux terminal 
+4) After perfoming Installation steps, run the following command on Linux terminal  (change the server IP address `192.168.137.1` to the one obtained from step 3)
 ```bash
   roslaunch vrpn_client_ros sample.launch server:=192.168.137.1
 ```
 
-Change the server IP address `192.168.137.1` to the one obtained from step 3.
-
 5) To check that motion data is received by ROS, open another termianl and run
 ```bash
-  rostopic list   #you should see a new topic /vrpn_client_node/robot1/pose
-  rostopic echo /vrpn_client_node/robot1/pose    # you shoud see a stream of data
+  #running this command should show a new topic /vrpn_client_node/robot1/pose
+  rostopic list 
+
+  # you shoud see a stream of data after running this command
+  rostopic echo /vrpn_client_node/robot1/pose
 ```
 
 Here we have named our rigid body `robot1`. The name may be different according to the name you have chosen while creating the rigid body.
@@ -172,6 +170,13 @@ Next, add a *Pose* and *tf* objects in RViZ, according to the image below. The o
 <img src="https://github.com/walmaawali/px4_vision_control/blob/main/images/rviz.jpg" width="500"/>
 
 > More info can be found in this [reference](https://tuw-cpsg.github.io/tutorials/optitrack-and-ros/). See VRPN section.
+
+## Footnotes
+[^1]:You can also install from the source using this [guide](https://docs.px4.io/v1.12/en/ros/mavros_installation.html#source-installation)
+
+[^2]: You could also build the workspace using `catkin build` if you installed **python-catkin-tools**
+
+[^3]: Or alternatively, you could run `source ~/catkin_ws/devel/setup.bash` when opening every new terminal in Ubuntu.
 
 ## References
 [OptiTrack Motive](https://v30.wiki.optitrack.com/index.php?title=OptiTrack_Documentation_Wiki)
