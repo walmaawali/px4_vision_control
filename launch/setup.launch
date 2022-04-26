@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<launch>
+	<include file="$(find vrpn_client_ros)/launch/sample.launch" />
+	<include file="$(find mavros)/launch/px4.launch" />
+	<node name="motive_topic_relay" pkg="px4_vision_control" type="motive_topic_relay.py" />
+	<node name="simulink_topic_relay" pkg="px4_vision_control" type="simulink_topic_relay.py" />
+</launch>

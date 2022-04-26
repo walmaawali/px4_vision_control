@@ -171,6 +171,69 @@ Next, add a *Pose* and *tf* objects in RViZ, according to the image below. The o
 
 > More info can be found in this [reference](https://tuw-cpsg.github.io/tutorials/optitrack-and-ros/). See VRPN section.
 
+## Put All Together
+
+> For safety purposes, you should do this test by removing drone propellers
+
+1) Power on the drone
+2) Connect the USB radio telemetry to Linux PC. Open a terminal and run
+```bash
+  sudo chmod 666 /dev/ttyUSB0
+```
+
+3) Make sure OptiTrack Motive is running. Run the following command in the terminal
+```bash
+  roslaunch px4_vision_control setup.launch
+```
+
+> It's good idea to check Motive data streaming and arming commands as we did earlier
+
+4) (Optional) Check that motion capture data is being forwarded to the drone by running
+```bash
+  # you should see a stream of data when running this command
+  rostopic echo /mavros/pose_vision/pose
+```
+
+5) Launch MATLAB/Simulink in Windows PC. Download and open [this](https://github.com/walmaawali/px4_vision_control/tree/main/simulink) Simulink Model
+
+<img src="https://github.com/walmaawali/px4_vision_control/blob/main/images/simulink_model.PNG" width="500"/>
+
+6) Open the *Apps* tab, select Robotic Operating System (ROS), and make the following configurations (here the IP address of the Linux PC is `192.168.137.5`. Change it to yours)
+
+<img src="https://github.com/walmaawali/px4_vision_control/blob/main/images/ros_app_matlab.PNG" />
+<img src="https://github.com/walmaawali/px4_vision_control/blob/main/images/ros_app_params.PNG" />
+
+> It's good idea to click "Test connection" to ensure MATLAB and ROS are well connected
+
+7) Double click on the "ROS Publish" and "ROS Message" blocks, and make sure the following configs are applied
+
+<img src="https://github.com/walmaawali/px4_vision_control/blob/main/images/publish_block_params.PNG" height="500"/>
+<img src="https://github.com/walmaawali/px4_vision_control/blob/main/images/msg_block_params.PNG" height="500"/>
+
+> Each input X, Y, Z, and W (yaw) represent a joystick control input (PWM values) to the drone. In this mode, the Z (altitude) is set to a sine wave, which will make the drone fly off the ground and land repeatedly.
+
+> The range of effective PWM values was found to be 1100-1800 (experimental).
+
+> If the above Simulink ran sccessfully, you can design a controller to output RC joystick values.
+
+8) Arm the drone by running this command in Linux terminal. Then run Simulink model.
+
+```bash
+  rosrun mavros mavsafety arm
+```
+
+> To disarm, run the following
+```bash
+  rosrun mavros mavsafety disarm
+```
+You can only disarm when joystick values are neutral (X=1500, Y=1500, Z=1100, W=1500)
+
+9) (Optional) You can find motion capture data in Simulink by subscribing to `vrpn_client_ros/drone1/pose` topic
+
+<img src="https://github.com/walmaawali/px4_vision_control/blob/main/images/simulink_sub_model.PNG" width="500"/>
+
+<img src="https://github.com/walmaawali/px4_vision_control/blob/main/images/sub_block_params.PNG" height="500"/>
+
 ## References
 [OptiTrack Motive](https://v30.wiki.optitrack.com/index.php?title=OptiTrack_Documentation_Wiki)
 
@@ -189,7 +252,6 @@ Next, add a *Pose* and *tf* objects in RViZ, according to the image below. The o
 - [Madona Ibrahim]()
 - [Majid Al Mujaini](https://github.com/Mujaini-M)
 
-## Footnotes
 [^1]:You can also install from the source using this [guide](https://docs.px4.io/v1.12/en/ros/mavros_installation.html#source-installation)
 
 [^2]: You could also build the workspace using `catkin build` if you installed **python-catkin-tools**
