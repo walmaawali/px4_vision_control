@@ -200,12 +200,11 @@ Next, add a *Pose* and *tf* objects in RViZ, according to the image below. The o
 
 5) Launch MATLAB/Simulink in Windows PC. Download and open [this](https://github.com/walmaawali/px4_vision_control/tree/main/simulink) Simulink Model
 
-<img src="https://github.com/walmaawali/px4_vision_control/blob/main/images/simulink_model.PNG" width="500"/>
+<img src="https://github.com/walmaawali/px4_vision_control/blob/main/images/simulink_model.PNG" width="700"/>
 
 6) Open the *Apps* tab, select Robotic Operating System (ROS), and make the following configurations (here the IP address of the Linux PC is `192.168.137.5`. Change it to yours)
 
-<img src="https://github.com/walmaawali/px4_vision_control/blob/main/images/ros_app_matlab.PNG" />
-<img src="https://github.com/walmaawali/px4_vision_control/blob/main/images/ros_app_params.PNG" />
+<img src="https://github.com/walmaawali/px4_vision_control/blob/main/images/ros_app_matlab.PNG" /> <img src="https://github.com/walmaawali/px4_vision_control/blob/main/images/ros_app_params.PNG" />
 
 > It's good idea to click "Test connection" to ensure MATLAB and ROS are well connected
 
@@ -230,9 +229,7 @@ Next, add a *Pose* and *tf* objects in RViZ, according to the image below. The o
 
 9) (Optional) You can find motion capture data in Simulink by subscribing to `vrpn_client_ros/drone1/pose` topic
 
-<img src="https://github.com/walmaawali/px4_vision_control/blob/main/images/simulink_sub_model.PNG" width="500"/>
-
-<img src="https://github.com/walmaawali/px4_vision_control/blob/main/images/sub_block_params.PNG" height="500"/>
+<img src="https://github.com/walmaawali/px4_vision_control/blob/main/images/simulink_sub_model.PNG" width="500"/> <img src="https://github.com/walmaawali/px4_vision_control/blob/main/images/sub_block_params.PNG" width="200"/>
 
 ## References
 [OptiTrack Motive](https://v30.wiki.optitrack.com/index.php?title=OptiTrack_Documentation_Wiki)
