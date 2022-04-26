@@ -15,6 +15,10 @@ This repository explains how to integrate a Pixhawk4-controlled vehicle with Opt
 ### Hardware Architecture
 <img src="https://github.com/walmaawali/px4_vision_control/blob/main/images/hardware_architecture.jpg" width="600" />
 
+### The Setup
+<img src="https://github.com/walmaawali/px4_vision_control/blob/main/images/arena.jpg" width="600" />
+
+
 ## Requirements
 * Windows PC running MATLAB/Simulink 2021b and [OptiTrack Motive](https://optitrack.com/software/motive/)
 * Linux PC with Ubuntu 16.04 and [ROS Kinetic](http://wiki.ros.org/kinetic/Installation/Ubuntu)
@@ -63,7 +67,7 @@ This repository explains how to integrate a Pixhawk4-controlled vehicle with Opt
 ```
 > Note: the USB telemetry radio may be on a different directoty (i.e. `/dev/ttyUSB1` or `/dev/ttyACM0`). Run `ls /dev` to see all serial devices. Try unplug and replug the USB telemetry radio and see which file gets created.
 
-3) Launch mavros node
+3) Launch *mavros* node
 ```bash
   roslaunch mavros px4.launch
 ```
@@ -113,7 +117,7 @@ This repository explains how to integrate a Pixhawk4-controlled vehicle with Opt
 
 <img src="https://github.com/walmaawali/px4_vision_control/blob/main/images/motive_asset_pane.PNG" />
 
-> Hint: If another name is desired, use a name without a space (for example, use `robot_1` or `robot1` instead of `robot 1`).
+> Hint: If another name is desired, use a name without a space (for example, use `robot_1` or `robot1` instead of `robot 1`).[^4]
 
 > Keep a note on the name of the drone, as it will be used in ROS.
 
@@ -138,7 +142,7 @@ This repository explains how to integrate a Pixhawk4-controlled vehicle with Opt
   ifconfig
 ```
 
-4) After perfoming Installation steps, run the following command on Linux terminal  (change the server IP address `192.168.137.1` to the one obtained from step 3)
+4) After perfoming Installation steps, run the following command on Linux terminal  (change the server IP address `192.168.137.1` to the one obtained from step 3)[^5]
 ```bash
   roslaunch vrpn_client_ros sample.launch server:=192.168.137.1
 ```
@@ -175,7 +179,7 @@ Next, add a *Pose* and *tf* objects in RViZ, according to the image below. The o
 
 > For safety purposes, you should do this test by removing drone propellers
 
-1) Power on the drone
+1) Power on the drone and place it in the arena
 2) Connect the USB radio telemetry to Linux PC. Open a terminal and run
 ```bash
   sudo chmod 666 /dev/ttyUSB0
@@ -207,8 +211,8 @@ Next, add a *Pose* and *tf* objects in RViZ, according to the image below. The o
 
 7) Double click on the "ROS Publish" and "ROS Message" blocks, and make sure the following configs are applied
 
-<img src="https://github.com/walmaawali/px4_vision_control/blob/main/images/publish_block_params.PNG" height="500"/>
-<img src="https://github.com/walmaawali/px4_vision_control/blob/main/images/msg_block_params.PNG" height="500"/>
+<img src="https://github.com/walmaawali/px4_vision_control/blob/main/images/publish_block_params.PNG" width="300"/>
+<img src="https://github.com/walmaawali/px4_vision_control/blob/main/images/msg_block_params.PNG" width="300"/>
 
 > Each input X, Y, Z, and W (yaw) represent a joystick control input (PWM values) to the drone. In this mode, the Z (altitude) is set to a sine wave, which will make the drone fly off the ground and land repeatedly.
 
@@ -222,11 +226,7 @@ Next, add a *Pose* and *tf* objects in RViZ, according to the image below. The o
   rosrun mavros mavsafety arm
 ```
 
-> To disarm, run the following
-```bash
-  rosrun mavros mavsafety disarm
-```
-You can only disarm when joystick values are neutral (X=1500, Y=1500, Z=1100, W=1500)
+> To disarm, run `rosrun mavros mavsafety disarm` You can only disarm when joystick values are neutral (X=1500, Y=1500, Z=1100, W=1500)
 
 9) (Optional) You can find motion capture data in Simulink by subscribing to `vrpn_client_ros/drone1/pose` topic
 
@@ -258,6 +258,9 @@ You can only disarm when joystick values are neutral (X=1500, Y=1500, Z=1100, W=
 
 [^3]: Or alternatively, you could run `source ~/catkin_ws/devel/setup.bash` when opening every new terminal in Ubuntu.
 
+[^4]: Currently, the name `drone1` is hard-coded. If you used another name, change `drone1` to the drone name in files **scripts/motive_topic_relay.py** and **launch/setup.launch** of this package.
+
+[^5] Currently, the IP address `192.168.137.1` of Windows PC is hard-coded. If yours is different, make sure to change this in the file **launch/setup.launch** of this package.
 
 
 
